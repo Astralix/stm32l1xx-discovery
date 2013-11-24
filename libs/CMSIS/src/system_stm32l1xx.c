@@ -43,12 +43,12 @@
   *=============================================================================
   *                         System Clock Configuration
   *=============================================================================
-  *        System Clock source          | PLL(HSE)
-  *-----------------------------------------------------------------------------
-  *        SYSCLK                       | 32000000 Hz
-  *-----------------------------------------------------------------------------
-  *        HCLK                         | 32000000 Hz
-  *-----------------------------------------------------------------------------
+  *        System clock source          | HSI
+  *----------------------------------------------------------------------------- 
+  *        SYSCLK                       | 16000000 Hz
+  *----------------------------------------------------------------------------- 
+  *        HCLK                         | 16000000 Hz
+  *----------------------------------------------------------------------------- 
   *        AHB Prescaler                | 1
   *-----------------------------------------------------------------------------
   *        APB1 Prescaler               | 1
@@ -56,16 +56,16 @@
   *        APB2 Prescaler               | 1
   *-----------------------------------------------------------------------------
   *        HSE Frequency                | 8000000 Hz
-  *-----------------------------------------------------------------------------
-  *        PLL DIV                      | 3
-  *-----------------------------------------------------------------------------
-  *        PLL MUL                      | 12
-  *-----------------------------------------------------------------------------
+  *----------------------------------------------------------------------------- 
+  *        PLL DIV                      | Not Used
+  *----------------------------------------------------------------------------- 
+  *        PLL MUL                      | Not Used
+  *----------------------------------------------------------------------------- 
   *        VDD                          | 3.3 V
   *-----------------------------------------------------------------------------
   *        Vcore                        | 1.8 V (Range 1)
   *-----------------------------------------------------------------------------
-  *        Flash Latency                | 1 WS
+  *        Flash Latency                | 0 WS
   *-----------------------------------------------------------------------------
   *        SDIO clock (SDIOCLK)         | 48000000 Hz
   *-----------------------------------------------------------------------------
@@ -146,7 +146,7 @@
 /** @addtogroup STM32L1xx_System_Private_Variables
   * @{
   */
-uint32_t SystemCoreClock    = 32000000;
+uint32_t SystemCoreClock    = 16000000;
 __I uint8_t PLLMulTable[9] = {3, 4, 6, 8, 12, 16, 24, 32, 48};
 __I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
 
@@ -315,39 +315,35 @@ void SystemCoreClockUpdate (void)
   */
 static void SetSysClock(void)
 {
-  __IO uint32_t StartUpCounter = 0, HSEStatus = 0;
+  __IO uint32_t StartUpCounter = 0, HSIStatus = 0;
   
   /* SYSCLK, HCLK, PCLK2 and PCLK1 configuration ---------------------------*/
-  /* Enable HSE */
-  RCC->CR |= ((uint32_t)RCC_CR_HSEON);
+  /* Enable HSI */
+  RCC->CR |= ((uint32_t)RCC_CR_HSION);
  
-  /* Wait till HSE is ready and if Time out is reached exit */
+  /* Wait till HSI is ready and if Time out is reached exit */
   do
   {
-    HSEStatus = RCC->CR & RCC_CR_HSERDY;
-    StartUpCounter++;
-  } while((HSEStatus == 0) && (StartUpCounter != HSE_STARTUP_TIMEOUT));
+    HSIStatus = RCC->CR & RCC_CR_HSIRDY;
+  } while((HSIStatus == 0) && (StartUpCounter != HSI_STARTUP_TIMEOUT));
 
-  if ((RCC->CR & RCC_CR_HSERDY) != RESET)
+  if ((RCC->CR & RCC_CR_HSIRDY) != RESET)
   {
-    HSEStatus = (uint32_t)0x01;
+    HSIStatus = (uint32_t)0x01;
   }
   else
   {
-    HSEStatus = (uint32_t)0x00;
+    HSIStatus = (uint32_t)0x00;
   }
-  
-  if (HSEStatus == (uint32_t)0x01)
+    
+  if (HSIStatus == (uint32_t)0x01)
   {
-    /* Enable 64-bit access */
-    FLASH->ACR |= FLASH_ACR_ACC64;
+    /* Flash 0 wait state */
+    FLASH->ACR &= ~FLASH_ACR_LATENCY;
     
     /* Enable Prefetch Buffer */
     FLASH->ACR |= FLASH_ACR_PRFTEN;
 
-    /* Flash 1 wait state */
-    FLASH->ACR |= FLASH_ACR_LATENCY;
-    
     /* Power enable */
     RCC->APB1ENR |= RCC_APB1ENR_PWREN;
   
@@ -368,31 +364,18 @@ static void SetSysClock(void)
     /* PCLK1 = HCLK /1*/
     RCC->CFGR |= (uint32_t)RCC_CFGR_PPRE1_DIV1;
     
-    /*  PLL configuration */
-    RCC->CFGR &= (uint32_t)((uint32_t)~(RCC_CFGR_PLLSRC | RCC_CFGR_PLLMUL |
-                                        RCC_CFGR_PLLDIV));
-    RCC->CFGR |= (uint32_t)(RCC_CFGR_PLLSRC_HSE | RCC_CFGR_PLLMUL12 | RCC_CFGR_PLLDIV3);
-
-    /* Enable PLL */
-    RCC->CR |= RCC_CR_PLLON;
-
-    /* Wait till PLL is ready */
-    while((RCC->CR & RCC_CR_PLLRDY) == 0)
-    {
-    }
-
-    /* Select PLL as system clock source */
+    /* Select HSI as system clock source */
     RCC->CFGR &= (uint32_t)((uint32_t)~(RCC_CFGR_SW));
-    RCC->CFGR |= (uint32_t)RCC_CFGR_SW_PLL;
+    RCC->CFGR |= (uint32_t)RCC_CFGR_SW_HSI;
 
-    /* Wait till PLL is used as system clock source */
-    while ((RCC->CFGR & (uint32_t)RCC_CFGR_SWS) != (uint32_t)RCC_CFGR_SWS_PLL)
+    /* Wait till HSI is used as system clock source */
+    while ((RCC->CFGR & (uint32_t)RCC_CFGR_SWS) != (uint32_t)RCC_CFGR_SWS_HSI)
     {
     }
   }
   else
   {
-    /* If HSE fails to start-up, the application will have wrong clock
+    /* If HSI fails to start-up, the application will have wrong clock
        configuration. User can add here some code to deal with this error */
   }
 }
