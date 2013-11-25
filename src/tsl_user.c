@@ -321,7 +321,7 @@ void ProcessSensors(void)
   Message[1] = ' ';
   Message[2] = ' ';
   /*Add "%" in message*/ 
-  Message[3] = '°' ;
+  Message[3] = 248 ;
   Message[4] = '/' ;
   Message[5] = '%' ;
 
@@ -339,7 +339,7 @@ void ProcessSensors(void)
   /*Convert percent value in char and store it in message*/    
   convert_into_char(percent_value,Message);
   /*Add "%" in message*/ 
-  Message[3] = '°' ;
+  Message[3] = 248 ;
   Message[4] = '/' ;
   Message[5] = '%' ;
   /*Display message*/
@@ -354,7 +354,7 @@ void ProcessSensors(void)
   */
 void ProcessSensorsButtons(void)
 {
-  uint8_t Message[6];  
+  char Message[6];
   
     /* Prepare Message to display*/
     Message[0] = ' ';

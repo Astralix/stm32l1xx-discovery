@@ -273,7 +273,7 @@ static void LCD_Conv_Char_Seg(uint8_t* c,bool point,bool column, uint8_t* digit)
       ch = star;
       break;
                   
-    case 'µ' :
+    case 230 :	// micron
       ch = C_UMAP;
       break;
     
@@ -293,7 +293,7 @@ static void LCD_Conv_Char_Seg(uint8_t* c,bool point,bool column, uint8_t* digit)
       ch = C_slatch;
       break;  
       
-    case '°' :
+    case 248 :	// small o
       ch = C_percent_1;
       break;  
     case '%' :
@@ -361,12 +361,12 @@ static void LCD_Conv_Char_Seg(uint8_t* c,bool point,bool column, uint8_t* digit)
   * @par    Required preconditions: The LCD should be cleared before to start the
   *         write operation.  
   */
-void LCD_GLASS_WriteChar(uint8_t* ch, bool point, bool column, uint8_t position)
+void LCD_GLASS_WriteChar(char* ch, bool point, bool column, uint8_t position)
 {
   uint8_t digit[4];     /* Digit frame buffer */
    
 /* To convert displayed character in segment in array digit */
-  LCD_Conv_Char_Seg(ch,point,column,digit);
+  LCD_Conv_Char_Seg((uint8_t*)ch,point,column,digit);
 
  
   switch (position)
@@ -469,7 +469,7 @@ void LCD_GLASS_WriteChar(uint8_t* ch, bool point, bool column, uint8_t position)
   * @param  ptr: Pointer to string to display on the LCD Glass.
   * @retval None
   */
-void LCD_GLASS_DisplayString(uint8_t* ptr)
+void LCD_GLASS_DisplayString(char* ptr)
 {
   uint8_t i = 0x01;
 
@@ -502,7 +502,7 @@ void LCD_GLASS_DisplayString(uint8_t* ptr)
 void LCD_GLASS_DisplayStrDeci(uint16_t* ptr)
 {
   uint8_t i = 0x01;
-  uint8_t char_tmp;
+  char char_tmp;
 
 	/* TO wait LCD Ready */  
   while( LCD_GetFlagStatus (LCD_FLAG_UDR) != RESET) ;
@@ -567,12 +567,12 @@ void LCD_GLASS_Clear(void)
   * @par    Required preconditions: The LCD should be cleared before to start the
   *         write operation.
   */
-void LCD_GLASS_ScrollSentence(uint8_t* ptr, uint16_t nScroll, uint16_t ScrollSpeed)
+void LCD_GLASS_ScrollSentence(char* ptr, uint16_t nScroll, uint16_t ScrollSpeed)
 {
   uint8_t Repetition;
   uint8_t Char_Nb;
-  uint8_t* ptr1;
-  uint8_t str[7]="";
+  char	  *ptr1;
+  char	  str[7]="";
   uint8_t Str_size;
   
   if (ptr == 0) return;

@@ -754,6 +754,8 @@ typedef struct
   #define __ASM            __asm                                      /*!< asm keyword for TASKING Compiler      */
   #define __INLINE         inline                                     /*!< inline keyword for TASKING Compiler   */
 
+#else
+#error Toolchain unkown!
 #endif
 
 

@@ -29,7 +29,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 static TSL_tTick_ms_T last_tick_tsl;  /* Hold the last tsl time value */
-extern unsigned char Bias_Current;    /* Bias Current stored in E²Prom used for ICC mesurement precision */
+extern unsigned char Bias_Current;    /* Bias Current stored in Eï¿½Prom used for ICC mesurement precision */
 extern uint8_t t_bar[2];              /* LCD bar graph: used for displaying active function */
 extern bool self_test;                /* Auto_test activation flag: set by interrupt handler if user button is pressed for a few seconds */
 extern bool Idd_WakeUP;               /* */
@@ -39,9 +39,9 @@ uint8_t state_machine;                /* Machine status used by main() wich indi
 uint16_t Int_CurrentSTBY;             /* */
 
 #ifdef STM32L1XX_MDP
-  uint8_t message[29] = "     ** 32L152CDISCOVERY  **";
+  char message[29] = "     ** 32L152CDISCOVERY  **";
 	#else
-	uint8_t message[29] = "     ** STM32L1-DISCOVERY **";
+	char message[29] = "     ** STM32L1-DISCOVERY **";
 #endif
 /*******************************************************************************/
 /**
@@ -135,7 +135,7 @@ int main(void)
   /* Check if User button press at Power ON  */	
   if ((USERBUTTON_GPIO_PORT->IDR & USERBUTTON_GPIO_PIN) != 0x0)
   {
-    /* Measure operational amplifier bias current and store value in E²Prom for application need*/
+    /* Measure operational amplifier bias current and store value in Eï¿½Prom for application need*/
     Bias_measurement();
   }
 

@@ -200,9 +200,8 @@ SECTIONS
 
         *(vtable)
 
-        *(.data .data.*)
-
-	    . = ALIGN(4);
+        *(.data .data.* .gnu.linkonce.d.*)
+    	. = ALIGN(4);
 
 	    /* This is used by the startup code to initialise the .data section */
         _edata = . ;        	/* STM specific definition */
@@ -240,6 +239,7 @@ SECTIONS
         _end_noinit = .;   
     } > RAM
     
+    end = .;
     PROVIDE ( end = _end_noinit ); /* was _ebss */
     PROVIDE ( _end = end );
     

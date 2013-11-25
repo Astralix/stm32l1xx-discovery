@@ -85,7 +85,7 @@ MSB   { 1 , 1 , 0 , 0   }
 #define BAR3_ON t_bar[0]  |= 2 
 #define BAR3_OFF t_bar[0] &= ~2 
 
-/* code for '�' character */
+/* code for 'µ' character */
 #define C_UMAP 0x6084
 
 /* code for 'm' character */
@@ -103,22 +103,22 @@ MSB   { 1 , 1 , 0 , 0   }
 /* constant code for '/' */
 #define C_slatch  0x00c0
 
-/* constant code for � */
-#define C_percent_1 0xec00
-
 /* constant code  for small o */
-#define C_percent_2 0xb300
+#define C_percent_1 0xb300
+
+/* constant code for % */
+#define C_percent_2 0xec00
 
 #define C_full 0xffdd
 
 void LCD_bar(void);
 void LCD_GLASS_Init(void);
-void LCD_GLASS_WriteChar(uint8_t* ch, bool point, bool column,uint8_t position);
-void LCD_GLASS_DisplayString(uint8_t* ptr);
+void LCD_GLASS_WriteChar(char* ch, bool point, bool column,uint8_t position);
+void LCD_GLASS_DisplayString(char* ptr);
 void LCD_GLASS_DisplayStrDeci(uint16_t* ptr);
 void LCD_GLASS_ClearChar(uint8_t position);
 void LCD_GLASS_Clear(void);
-void LCD_GLASS_ScrollSentence(uint8_t* ptr, uint16_t nScroll, uint16_t ScrollSpeed);
+void LCD_GLASS_ScrollSentence(char* ptr, uint16_t nScroll, uint16_t ScrollSpeed);
 void LCD_GLASS_WriteTime(char a, uint8_t posi, bool column);
 void LCD_GLASS_Configure_GPIO(void);
 

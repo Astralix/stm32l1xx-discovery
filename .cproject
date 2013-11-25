@@ -22,7 +22,7 @@
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.optimization.functionsections.2085439196" name="Function sections (-ffunction-sections)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.optimization.functionsections" value="true" valueType="boolean"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.optimization.datasections.1103518269" name="Data sections (-fdata-sections)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.optimization.datasections" value="true" valueType="boolean"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.warnings.allwarn.1924882484" name="Enable all common warnings (-Wall)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.warnings.allwarn" value="true" valueType="boolean"/>
-							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.debugging.level.1562463230" name="Debug level" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.debugging.level" value="ilg.gnuarmeclipse.managedbuild.cross.option.debugging.level.max" valueType="enumerated"/>
+							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.debugging.level.1562463230" name="Debug level" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.debugging.level" value="ilg.gnuarmeclipse.managedbuild.cross.option.debugging.level.default" valueType="enumerated"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.debugging.format.337876080" name="Debug format" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.debugging.format"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.toolchain.name.1094983395" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.toolchain.name" value="GNU Tools for ARM Embedded Processors" valueType="string"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.architecture.1341602819" name="Architecture" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.architecture" value="ilg.gnuarmeclipse.managedbuild.cross.option.architecture.arm" valueType="enumerated"/>
@@ -40,6 +40,7 @@
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createlisting.1159171265" name="Create extended listing" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createlisting" value="true" valueType="boolean"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.printsize.838391487" name="Print size" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.printsize" value="true" valueType="boolean"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.toolchain.path.120523797" name="Path" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.toolchain.path" value="/opt/gcc-arm-none-eabi-4_7-2013q3/bin" valueType="string"/>
+							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.unalignedaccess.597449933" name="Unaligned access" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.unalignedaccess" value="ilg.gnuarmeclipse.managedbuild.cross.option.arm.target.unalignedaccess.enabled" valueType="enumerated"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="ilg.gnuarmeclipse.managedbuild.cross.targetPlatform.1251619066" isAbstract="false" osList="all" superClass="ilg.gnuarmeclipse.managedbuild.cross.targetPlatform"/>
 							<builder buildPath="${workspace_loc:/STM32L152-DISCOVERY}/Debug" id="ilg.gnuarmeclipse.managedbuild.cross.builder.782997367" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="ilg.gnuarmeclipse.managedbuild.cross.builder"/>
 							<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler.251168873" name="Cross ARM GNU Assembler" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler">
@@ -49,15 +50,15 @@
 									<listOptionValue builtIn="false" value="&quot;../libs/CMSIS/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../libs/StdPeriph/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../libs/misc/include&quot;"/>
-									<listOptionValue builtIn="false" value="../libs/tsl/include"/>
+									<listOptionValue builtIn="false" value="&quot;../libs/tsl/include&quot;"/>
 									<listOptionValue builtIn="false" value="/opt/gcc-arm-none-eabi-4_7-2013q3/lib/gcc/arm-none-eabi/4.7.4/include"/>
 									<listOptionValue builtIn="false" value="/opt/gcc-arm-none-eabi-4_7-2013q3/lib/gcc/arm-none-eabi/4.7.4/include-fixed"/>
 									<listOptionValue builtIn="false" value="/opt/gcc-arm-none-eabi-4_7-2013q3/arm-none-eabi/include"/>
 								</option>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.defs.2058915831" name="Defined symbols (-D)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.defs" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="DEBUG"/>
 									<listOptionValue builtIn="false" value="STM32L1XX_MD"/>
 									<listOptionValue builtIn="false" value="USE_STDPERIPH_DRIVER"/>
-									<listOptionValue builtIn="false" value="DEBUG"/>
 									<listOptionValue builtIn="false" value="TSLPRM_STM32L1XX_SW_ACQ"/>
 								</option>
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler.input.994957466" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler.input"/>
@@ -68,15 +69,15 @@
 									<listOptionValue builtIn="false" value="&quot;../libs/CMSIS/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../libs/StdPeriph/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;../libs/misc/include&quot;"/>
-									<listOptionValue builtIn="false" value="../libs/tsl/include"/>
+									<listOptionValue builtIn="false" value="&quot;../libs/tsl/include&quot;"/>
 									<listOptionValue builtIn="false" value="/opt/gcc-arm-none-eabi-4_7-2013q3/arm-none-eabi/include"/>
 									<listOptionValue builtIn="false" value="/opt/gcc-arm-none-eabi-4_7-2013q3/lib/gcc/arm-none-eabi/4.7.4/include"/>
 									<listOptionValue builtIn="false" value="/opt/gcc-arm-none-eabi-4_7-2013q3/lib/gcc/arm-none-eabi/4.7.4/include-fixed"/>
 								</option>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs.1151796202" name="Defined symbols (-D)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="DEBUG"/>
 									<listOptionValue builtIn="false" value="STM32L1XX_MD"/>
 									<listOptionValue builtIn="false" value="USE_STDPERIPH_DRIVER"/>
-									<listOptionValue builtIn="false" value="DEBUG"/>
 									<listOptionValue builtIn="false" value="TSLPRM_STM32L1XX_SW_ACQ"/>
 								</option>
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input.1408816803" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input"/>
@@ -137,11 +138,11 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="system_stm32f10x.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="libs/CMSIS/src"/>
-						<entry excluding="stm32l1xx_flash_ramfunc.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="libs/StdPeriph/src"/>
+						<entry excluding="startup_stm32l1xx.c|vectors_stm32l1xx.c|startup_cm.c|system_stm32f10x.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="libs/CMSIS/src"/>
+						<entry excluding="stm32l1xx_wwdg.c|stm32l1xx_usart.c|stm32l1xx_tim.c|stm32l1xx_spi.c|stm32l1xx_sdio.c|stm32l1xx_opamp.c|stm32l1xx_iwdg.c|stm32l1xx_i2c.c|stm32l1xx_fsmc.c|stm32l1xx_dma.c|stm32l1xx_dbgmcu.c|stm32l1xx_dac.c|stm32l1xx_crc.c|stm32l1xx_comp.c|stm32l1xx_aes.c|stm32l1xx_aes_util.c|stm32l1xx_flash_ramfunc.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="libs/StdPeriph/src"/>
 						<entry excluding="tsl_acq_stm8tl5x.c|tsl_time_stm32f0xx.c|tsl_time_stm8tl5x.c|tsl_time_stm32f3xx.c|tsl_acq_stm32f0xx.c|tsl_acq_stm32f3xx.c|tsl_acq_stm32l1xx_hw.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="libs/misc/src"/>
 						<entry excluding="tsl_acq_stm32l1xx_hw.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="libs/tsl/src"/>
-						<entry excluding="system_stm32l1xx.c|stm32l1xx_it.c|startup_stm32l1xx_md.S" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
+						<entry excluding="system_stm32l1xx.c|stm32l1xx_it.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -204,6 +205,7 @@
 									<listOptionValue builtIn="false" value="STM32F10X_MD"/>
 									<listOptionValue builtIn="false" value="USE_STDPERIPH_DRIVER"/>
 									<listOptionValue builtIn="false" value="TSLPRM_STM32L1XX_SW_ACQ"/>
+									<listOptionValue builtIn="false" value="STM32L1XX_MD"/>
 								</option>
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler.input.26485943" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler.input"/>
 							</tool>
@@ -219,10 +221,9 @@
 									<listOptionValue builtIn="false" value="/opt/gcc-arm-none-eabi-4_7-2013q3/arm-none-eabi/include"/>
 								</option>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs.1855451478" name="Defined symbols (-D)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="STM32F10X_MD"/>
 									<listOptionValue builtIn="false" value="USE_STDPERIPH_DRIVER"/>
-									<listOptionValue builtIn="false" value="__GNUC__"/>
 									<listOptionValue builtIn="false" value="TSLPRM_STM32L1XX_SW_ACQ"/>
+									<listOptionValue builtIn="false" value="STM32L1XX_MD"/>
 								</option>
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input.1406104436" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input"/>
 							</tool>
@@ -281,11 +282,11 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="system_stm32f10x.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="libs/CMSIS/src"/>
-						<entry excluding="stm32l1xx_flash_ramfunc.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="libs/StdPeriph/src"/>
+						<entry excluding="startup_stm32l1xx.c|vectors_stm32l1xx.c|startup_cm.c|system_stm32f10x.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="libs/CMSIS/src"/>
+						<entry excluding="stm32l1xx_wwdg.c|stm32l1xx_usart.c|stm32l1xx_tim.c|stm32l1xx_spi.c|stm32l1xx_sdio.c|stm32l1xx_opamp.c|stm32l1xx_iwdg.c|stm32l1xx_i2c.c|stm32l1xx_fsmc.c|stm32l1xx_dma.c|stm32l1xx_dbgmcu.c|stm32l1xx_dac.c|stm32l1xx_crc.c|stm32l1xx_comp.c|stm32l1xx_aes.c|stm32l1xx_aes_util.c|stm32l1xx_flash_ramfunc.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="libs/StdPeriph/src"/>
 						<entry excluding="tsl_acq_stm8tl5x.c|tsl_time_stm32f0xx.c|tsl_time_stm8tl5x.c|tsl_time_stm32f3xx.c|tsl_acq_stm32f0xx.c|tsl_acq_stm32f3xx.c|tsl_acq_stm32l1xx_hw.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="libs/misc/src"/>
 						<entry excluding="tsl_acq_stm32l1xx_hw.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="libs/tsl/src"/>
-						<entry excluding="system_stm32l1xx.c|stm32l1xx_it.c|startup_stm32l1xx_md.S" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
+						<entry excluding="system_stm32l1xx.c|stm32l1xx_it.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
