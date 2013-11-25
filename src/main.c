@@ -54,6 +54,11 @@ SysTick_Handler(void);
 #define LD_BLUE_GPIO_PIN        GPIO_Pin_6
 #define LD_GPIO_PORT_CLK        RCC_AHBPeriph_GPIOB
 
+#define MCO_GPIO_PORT			GPIOA
+#define MCO_GPIO_PIN			GPIO_Pin_8
+#define MCO_GPIO_PORT_CLK		RCC_AHBPeriph_GPIOA
+
+
 #define BLINK_TICKS     SYSTICK_FREQUENCY_HZ/2
 
 /* ------------------------------------------------------------------------- */
@@ -80,7 +85,7 @@ main(void)
 	/* Use SysTick as reference for the timer */
 	SysTick_Config(SystemCoreClock / SYSTICK_FREQUENCY_HZ);
 
-	/* GPIO Periph clock enable */
+	/* GPIO Periph clock enable for LED */
 	RCC_AHBPeriphClockCmd(LD_GPIO_PORT_CLK, ENABLE);
 
 	GPIO_InitTypeDef GPIO_InitStructure;
@@ -94,6 +99,19 @@ main(void)
 	GPIO_Init(LD_GPIO_PORT, &GPIO_InitStructure);
 	GPIO_ResetBits(LD_GPIO_PORT, LD_GREEN_GPIO_PIN);
 	GPIO_ResetBits(LD_GPIO_PORT, LD_BLUE_GPIO_PIN);
+
+	/* GPIO Periph clock enable for MCO */
+	RCC_AHBPeriphClockCmd(MCO_GPIO_PORT_CLK, ENABLE);
+
+	GPIO_InitStructure.GPIO_Pin = MCO_GPIO_PIN;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;
+	GPIO_Init(MCO_GPIO_PORT, &GPIO_InitStructure);
+
+	GPIO_PinAFConfig(GPIOA, GPIO_PinSource8, GPIO_AF_MCO);
+	RCC_MCOConfig(RCC_MCOSource_SYSCLK , RCC_MCODiv_8);
 
 	int seconds = 0;
 
