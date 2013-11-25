@@ -194,7 +194,7 @@ COMP_ACQ_IRQHandler(void);
 extern unsigned int _estack;
 
 typedef void
-(* const pfn)(void);
+		(* const pfn)(void);
 //extern pfn g_pfnVectors[];
 
 //*****************************************************************************
@@ -211,128 +211,128 @@ typedef void
 
 __attribute__ ((section(".isr_vector")))
 pfn g_pfnVectors[] =
-  {
-// Core Level - CM3
-      (pfn) &_estack, // The initial stack pointer
-      Reset_Handler, // The reset handler
+{
+		// Core Level - CM3
+		(pfn) &_estack, // The initial stack pointer
+		Reset_Handler, // The reset handler
 
-      NMI_Handler, // The NMI handler
-      HardFault_Handler, // The hard fault handler
-      MemManage_Handler, // The MPU fault handler
-      BusFault_Handler, // The bus fault handler
-      UsageFault_Handler, // The usage fault handler
-      0, // Reserved
-      0, // Reserved
-      0, // Reserved
-      0, // Reserved
-      SVC_Handler, // SVCall handler
-      DebugMon_Handler, // Debug monitor handler
-      0, // Reserved
-      PendSV_Handler, // The PendSV handler
-      SysTick_Handler, // The SysTick handler
+		NMI_Handler, // The NMI handler
+		HardFault_Handler, // The hard fault handler
+		MemManage_Handler, // The MPU fault handler
+		BusFault_Handler, // The bus fault handler
+		UsageFault_Handler, // The usage fault handler
+		0, // Reserved
+		0, // Reserved
+		0, // Reserved
+		0, // Reserved
+		SVC_Handler, // SVCall handler
+		DebugMon_Handler, // Debug monitor handler
+		0, // Reserved
+		PendSV_Handler, // The PendSV handler
+		SysTick_Handler, // The SysTick handler
 
-      // Chip Level - STM32F10x
-      WWDG_IRQHandler, // Window WatchDog
-      PVD_IRQHandler, // PVD through EXTI Line detection
-      TAMPER_IRQHandler, // Tamper through the EXTI line
-      RTC_IRQHandler, // RTC Wakeup through the EXTI line
-      FLASH_IRQHandler, // FLASH
-      RCC_IRQHandler, // RCC
-      EXTI0_IRQHandler, // EXTI Line0
-      EXTI1_IRQHandler, // EXTI Line1
-      EXTI2_IRQHandler, // EXTI Line2
-      EXTI3_IRQHandler, // EXTI Line3
-      EXTI4_IRQHandler, // EXTI Line4
-      DMA1_Channel1_IRQHandler, // DMA1 Channel 1
-      DMA1_Channel2_IRQHandler, // DMA1 Channel 2
-      DMA1_Channel3_IRQHandler, // DMA1 Channel 3
-      DMA1_Channel4_IRQHandler, // DMA1 Channel 4
-      DMA1_Channel5_IRQHandler, // DMA1 Channel 5
-      DMA1_Channel6_IRQHandler, // DMA1 Channel 6
-      DMA1_Channel7_IRQHandler, // DMA1 Channel 7
-      ADC1_IRQHandler,
-      USB_HP_IRQHandler,
-      USB_LP_IRQHandler,
-      DAC_IRQHandler,
-      COMP_IRQHandler,
-      EXTI9_5_IRQHandler,
-      LCD_IRQHandler,
-      TIM9_IRQHandler,
-      TIM10_IRQHandler,
-      TIM11_IRQHandler,
-      TIM2_IRQHandler,
-      TIM3_IRQHandler,
-      TIM4_IRQHandler,
-      I2C1_EV_IRQHandler,
-      I2C1_ER_IRQHandler,
-      I2C2_EV_IRQHandler,
-      I2C2_ER_IRQHandler,
-      SPI1_IRQHandler,
-      SPI2_IRQHandler,
-      USART1_IRQHandler,
-      USART2_IRQHandler,
-      USART3_IRQHandler,
-      EXTI15_10_IRQHandler,
-      RTC_Alarm_IRQHandler,
-      USB_FS_WKUP_IRQHandler,
-      TIM6_IRQHandler,
-      TIM7_IRQHandler,
+		// Chip Level - STM32F10x
+		WWDG_IRQHandler, // Window WatchDog
+		PVD_IRQHandler, // PVD through EXTI Line detection
+		TAMPER_IRQHandler, // Tamper through the EXTI line
+		RTC_IRQHandler, // RTC Wakeup through the EXTI line
+		FLASH_IRQHandler, // FLASH
+		RCC_IRQHandler, // RCC
+		EXTI0_IRQHandler, // EXTI Line0
+		EXTI1_IRQHandler, // EXTI Line1
+		EXTI2_IRQHandler, // EXTI Line2
+		EXTI3_IRQHandler, // EXTI Line3
+		EXTI4_IRQHandler, // EXTI Line4
+		DMA1_Channel1_IRQHandler, // DMA1 Channel 1
+		DMA1_Channel2_IRQHandler, // DMA1 Channel 2
+		DMA1_Channel3_IRQHandler, // DMA1 Channel 3
+		DMA1_Channel4_IRQHandler, // DMA1 Channel 4
+		DMA1_Channel5_IRQHandler, // DMA1 Channel 5
+		DMA1_Channel6_IRQHandler, // DMA1 Channel 6
+		DMA1_Channel7_IRQHandler, // DMA1 Channel 7
+		ADC1_IRQHandler,
+		USB_HP_IRQHandler,
+		USB_LP_IRQHandler,
+		DAC_IRQHandler,
+		COMP_IRQHandler,
+		EXTI9_5_IRQHandler,
+		LCD_IRQHandler,
+		TIM9_IRQHandler,
+		TIM10_IRQHandler,
+		TIM11_IRQHandler,
+		TIM2_IRQHandler,
+		TIM3_IRQHandler,
+		TIM4_IRQHandler,
+		I2C1_EV_IRQHandler,
+		I2C1_ER_IRQHandler,
+		I2C2_EV_IRQHandler,
+		I2C2_ER_IRQHandler,
+		SPI1_IRQHandler,
+		SPI2_IRQHandler,
+		USART1_IRQHandler,
+		USART2_IRQHandler,
+		USART3_IRQHandler,
+		EXTI15_10_IRQHandler,
+		RTC_Alarm_IRQHandler,
+		USB_FS_WKUP_IRQHandler,
+		TIM6_IRQHandler,
+		TIM7_IRQHandler,
 
 #if defined(STM32L1XX_HD)
 
-      SDIO_IRQHandler,
-      TIM5_IRQHandler,
-      SPI3_IRQHandler,
-      UART4_IRQHandler,
-      UART5_IRQHandler,
-      DMA2_Channel1_IRQHandler,
-      DMA2_Channel2_IRQHandler,
-      DMA2_Channel3_IRQHandler,
-      DMA2_Channel4_IRQHandler,
-      DMA2_Channel5_IRQHandler,
-      AES_IRQHandler,
-      COMP_ACQ_IRQHandler,
-      0,
-      0,
-      0,
-      0,
-      0,
+		SDIO_IRQHandler,
+		TIM5_IRQHandler,
+		SPI3_IRQHandler,
+		UART4_IRQHandler,
+		UART5_IRQHandler,
+		DMA2_Channel1_IRQHandler,
+		DMA2_Channel2_IRQHandler,
+		DMA2_Channel3_IRQHandler,
+		DMA2_Channel4_IRQHandler,
+		DMA2_Channel5_IRQHandler,
+		AES_IRQHandler,
+		COMP_ACQ_IRQHandler,
+		0,
+		0,
+		0,
+		0,
+		0,
 
 #elif defined(STM32L1XX_MDP)
 
-      0,
-      TIM5_IRQHandler,
-      SPI3_IRQHandler,
-      0,
-      0,
-      DMA2_Channel1_IRQHandler,
-      DMA2_Channel2_IRQHandler,
-      DMA2_Channel3_IRQHandler,
-      DMA2_Channel4_IRQHandler,
-      DMA2_Channel5_IRQHandler,
-      AES_IRQHandler,
-      COMP_ACQ_IRQHandler,
-      0,
-      0,
-      0,
-      0,
-      0,
+		0,
+		TIM5_IRQHandler,
+		SPI3_IRQHandler,
+		0,
+		0,
+		DMA2_Channel1_IRQHandler,
+		DMA2_Channel2_IRQHandler,
+		DMA2_Channel3_IRQHandler,
+		DMA2_Channel4_IRQHandler,
+		DMA2_Channel5_IRQHandler,
+		AES_IRQHandler,
+		COMP_ACQ_IRQHandler,
+		0,
+		0,
+		0,
+		0,
+		0,
 
 #elif defined(STM32L1XX_MD)
 
-	  0,
-	  0,
-	  0,
-	  0,
-	  0,
+		0,
+		0,
+		0,
+		0,
+		0,
 
 #else
 #error "missing vectors"
 #endif
-	/* @0x108. This is for boot in RAM mode for
-	STM32L15x ULtra Low Power Medium-density devices. */
-	(pfn)0xF108F85F,
-  };
+		/* @0x108. This is for boot in RAM mode for
+			STM32L15x ULtra Low Power Medium-density devices. */
+		(pfn)0xF108F85F,
+};
 
 //*****************************************************************************
 //
@@ -344,9 +344,9 @@ pfn g_pfnVectors[] =
 void __attribute__ ((section(".after_vectors")))
 Default_Handler(void)
 {
-  while (1)
-    {
-    }
+	while (1)
+	{
+	}
 }
 
 //*****************************************************************************
@@ -356,72 +356,72 @@ Default_Handler(void)
 void __attribute__ ((section(".after_vectors")))
 NMI_Handler(void)
 {
-  while (1)
-    {
-    }
+	while (1)
+	{
+	}
 }
 
 void __attribute__ ((section(".after_vectors")))
 HardFault_Handler(void)
 {
-  while (1)
-    {
-    }
+	while (1)
+	{
+	}
 }
 
 void __attribute__ ((section(".after_vectors")))
 MemManage_Handler(void)
 {
-  while (1)
-    {
-    }
+	while (1)
+	{
+	}
 }
 
 void __attribute__ ((section(".after_vectors")))
 BusFault_Handler(void)
 {
-  while (1)
-    {
-    }
+	while (1)
+	{
+	}
 }
 
 void __attribute__ ((section(".after_vectors")))
 UsageFault_Handler(void)
 {
-  while (1)
-    {
-    }
+	while (1)
+	{
+	}
 }
 
 void __attribute__ ((section(".after_vectors")))
 SVC_Handler(void)
 {
-  while (1)
-    {
-    }
+	while (1)
+	{
+	}
 }
 
 void __attribute__ ((section(".after_vectors")))
 DebugMon_Handler(void)
 {
-  while (1)
-    {
-    }
+	while (1)
+	{
+	}
 }
 
 void __attribute__ ((section(".after_vectors")))
 PendSV_Handler(void)
 {
-  while (1)
-    {
-    }
+	while (1)
+	{
+	}
 }
 
 void __attribute__ ((section(".after_vectors")))
 SysTick_Handler(void)
 {
-  while (1)
-    {
-    }
+	while (1)
+	{
+	}
 }
 

@@ -28,7 +28,7 @@
 
 #if defined (__cplusplus)
 extern "C"
-  {
+{
 #endif
 
 void __attribute__((weak))
@@ -46,7 +46,7 @@ SystemInit(void);
 // Initialise the data section
 inline void
 data_init(unsigned int* from, unsigned int* section_begin,
-    unsigned int* section_end);
+		unsigned int* section_end);
 
 // Begin address for the initialisation values of the .data section.
 // defined in linker script
@@ -95,14 +95,14 @@ _exit(int);
 inline void
 __attribute__((always_inline))
 data_init(unsigned int* from, unsigned int* section_begin,
-    unsigned int* section_end)
-{
-  // Iterate and copy word by word.
-  // It is assumed that the pointers are word aligned.
-  unsigned int *p = section_begin;
-  while (p < section_end)
-    *p++ = *from++;
-}
+		unsigned int* section_end)
+		{
+	// Iterate and copy word by word.
+	// It is assumed that the pointers are word aligned.
+	unsigned int *p = section_begin;
+	while (p < section_end)
+		*p++ = *from++;
+		}
 
 #if !defined(USE_STARTUP_FILES)
 
@@ -110,11 +110,11 @@ inline void
 __attribute__((always_inline))
 bss_init(unsigned int* section_begin, unsigned int* section_end)
 {
-  // Iterate and clear word by word.
-  // It is assumed that the pointers are word aligned.
-  unsigned int *p = section_begin;
-  while (p < section_end)
-    *p++ = 0;
+	// Iterate and clear word by word.
+	// It is assumed that the pointers are word aligned.
+	unsigned int *p = section_begin;
+	while (p < section_end)
+		*p++ = 0;
 }
 
 #endif
@@ -122,21 +122,21 @@ bss_init(unsigned int* section_begin, unsigned int* section_end)
 #if defined(USE_STARTUP_FILES)
 void __attribute__ ((section(".after_vectors"), naked))
 Reset_Handler(void)
-  {
-    // This is useful when using certain libraries that came with custom
-    // startup files, like librdimon.a.
+{
+	// This is useful when using certain libraries that came with custom
+	// startup files, like librdimon.a.
 
-    // Go to the startup code, that is expected to perform the
-    // usual initialisations, i.e. clear the BSS, run the
-    // init arrays and call main().
-    asm volatile
-    (
-        " b _start \n"
-        :
-        :
-        :
-    );
-  }
+	// Go to the startup code, that is expected to perform the
+	// usual initialisations, i.e. clear the BSS, run the
+	// init arrays and call main().
+	asm volatile
+	(
+			" b _start \n"
+			:
+			:
+			:
+	);
+}
 #else
 
 // These magic symbols are provided by the linker.
@@ -157,38 +157,38 @@ extern void
 inline void
 __libc_init_array(void)
 {
-  size_t count;
-  size_t i;
+	size_t count;
+	size_t i;
 
-  count = __preinit_array_end - __preinit_array_start;
-  for (i = 0; i < count; i++)
-    __preinit_array_start[i]();
+	count = __preinit_array_end - __preinit_array_start;
+	for (i = 0; i < count; i++)
+		__preinit_array_start[i]();
 
-  // If you need to run the code in the .init section, please use
-  // the startup files, since this requires the code in crti.o and crtn.o
-  // to add the function prologue/epilogue.
-  //_init();
+	// If you need to run the code in the .init section, please use
+	// the startup files, since this requires the code in crti.o and crtn.o
+	// to add the function prologue/epilogue.
+	//_init();
 
-  count = __init_array_end - __init_array_start;
-  for (i = 0; i < count; i++)
-    __init_array_start[i]();
+	count = __init_array_end - __init_array_start;
+	for (i = 0; i < count; i++)
+		__init_array_start[i]();
 }
 
 // Run all the cleanup routines.
 inline void
 __libc_fini_array(void)
 {
-  size_t count;
-  size_t i;
+	size_t count;
+	size_t i;
 
-  count = __fini_array_end - __fini_array_start;
-  for (i = count; i > 0; i--)
-    __fini_array_start[i - 1]();
+	count = __fini_array_end - __fini_array_start;
+	for (i = count; i > 0; i--)
+		__fini_array_start[i - 1]();
 
-  // If you need to run the code in the .fini section, please use
-  // the startup files, since this requires the code in crti.o and crtn.o
-  // to add the function prologue/epilogue.
-  //_fini();
+	// If you need to run the code in the .fini section, please use
+	// the startup files, since this requires the code in crti.o and crtn.o
+	// to add the function prologue/epilogue.
+	//_fini();
 }
 
 // This is the place where Cortex-M core will go immediately after reset.
@@ -196,26 +196,26 @@ void __attribute__ ((section(".after_vectors")))
 Reset_Handler(void)
 {
 
-  // Use Old Style Data and BSS section initialisation,
-  // That will initialise a single BSS sections.
+	// Use Old Style Data and BSS section initialisation,
+	// That will initialise a single BSS sections.
 
-  // Zero fill the bss segment
-  bss_init(&__bss_start__, &__bss_end__);
+	// Zero fill the bss segment
+	bss_init(&__bss_start__, &__bss_end__);
 
-  // Call the standard library initialisation (mandatory, SystemInit()
-  // and C++ static constructors are called from here).
-  __libc_init_array();
+	// Call the standard library initialisation (mandatory, SystemInit()
+	// and C++ static constructors are called from here).
+	__libc_init_array();
 
-  // Call the main entry point, and save the exit code.
-  int r = main();
+	// Call the main entry point, and save the exit code.
+	int r = main();
 
-  // Run the static destructors.
-  __libc_fini_array();
+	// Run the static destructors.
+	__libc_fini_array();
 
-  // On test platforms, like semi-hosting, this can be used to inform
-  // the host on the test result.
-  // On embedded platforms, usually reset the processor.
-  _exit(r);
+	// On test platforms, like semi-hosting, this can be used to inform
+	// the host on the test result.
+	// On embedded platforms, usually reset the processor.
+	_exit(r);
 
 }
 
@@ -226,14 +226,14 @@ void
 __attribute__((section(".after_vectors")))
 system_init()
 {
-  // Copy the data segment from Flash to RAM.
-  // This is here since some library crt0 code does not perform it there
-  // so we must be sure it is executed somewhere.
-  // (for example librdimon)
-  data_init(&_sidata, &_sdata, &_edata);
+	// Copy the data segment from Flash to RAM.
+	// This is here since some library crt0 code does not perform it there
+	// so we must be sure it is executed somewhere.
+	// (for example librdimon)
+	data_init(&_sidata, &_sdata, &_edata);
 
-  // Call the CSMSIS system initialisation routine
-  SystemInit();
+	// Call the CSMSIS system initialisation routine
+	SystemInit();
 }
 
 // The .preinit_array_sysinit section is defined in sections.ld as the first
