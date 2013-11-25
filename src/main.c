@@ -49,9 +49,10 @@ SysTick_Handler(void);
 /* Olimex STM32-H103 LED definitions */
 /* Adjust them for your own board. */
 
-#define BLINK_PORT      GPIOB
-#define BLINK_PIN       6
-#define BLINK_RCC_BIT   RCC_AHBPeriph_GPIOB
+#define LD_GPIO_PORT 			GPIOB
+#define LD_GREEN_GPIO_PIN		GPIO_Pin_7
+#define LD_BLUE_GPIO_PIN        GPIO_Pin_6
+#define LD_GPIO_PORT_CLK        RCC_AHBPeriph_GPIOB
 
 #define BLINK_TICKS     SYSTICK_FREQUENCY_HZ/2
 
@@ -61,61 +62,65 @@ int
 main(void)
 {
 #if defined(DEBUG)
-  /*
-   * Send a greeting to the standard output (the semi-hosting debug channel
-   * on Debug, ignored on Release).
-   */
-  printf("Hello ARM World!\n");
+	/*
+	 * Send a greeting to the standard output (the semi-hosting debug channel
+	 * on Debug, ignored on Release).
+	 */
+	printf("Hello ARM World!\n");
 #endif
 
-  /*
-   * At this stage the microcontroller clock setting is already configured,
-   * this is done through SystemInit() function which is called from startup
-   * file (startup_cm.c) before to branch to application main.
-   * To reconfigure the default setting of SystemInit() function, refer to
-   * system_stm32f10x.c file
-   */
+	/*
+	 * At this stage the microcontroller clock setting is already configured,
+	 * this is done through SystemInit() function which is called from startup
+	 * file (startup_cm.c) before to branch to application main.
+	 * To reconfigure the default setting of SystemInit() function, refer to
+	 * system_stm32f10x.c file
+	 */
 
-  /* Use SysTick as reference for the timer */
-  SysTick_Config(SystemCoreClock / SYSTICK_FREQUENCY_HZ);
+	/* Use SysTick as reference for the timer */
+	SysTick_Config(SystemCoreClock / SYSTICK_FREQUENCY_HZ);
 
-  /* GPIO Periph clock enable */
-  RCC_APB2PeriphClockCmd(BLINK_RCC_BIT, ENABLE);
+	/* GPIO Periph clock enable */
+	RCC_AHBPeriphClockCmd(LD_GPIO_PORT_CLK, ENABLE);
 
-  GPIO_InitTypeDef GPIO_InitStructure;
+	GPIO_InitTypeDef GPIO_InitStructure;
 
-  /* Configure pin in output push/pull mode */
-  GPIO_InitStructure.GPIO_Pin = (1 << BLINK_PIN);
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_40MHz;
-  GPIO_InitStructure.GPIO_Mode = GPIO_OType_PP;
-  GPIO_Init(BLINK_PORT, &GPIO_InitStructure);
+	/* Configure the GPIO_LED pins  LD3 & LD4*/
+	GPIO_InitStructure.GPIO_Pin = LD_GREEN_GPIO_PIN | LD_BLUE_GPIO_PIN;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+	GPIO_Init(LD_GPIO_PORT, &GPIO_InitStructure);
+	GPIO_ResetBits(LD_GPIO_PORT, LD_GREEN_GPIO_PIN);
+	GPIO_ResetBits(LD_GPIO_PORT, LD_BLUE_GPIO_PIN);
 
-  int seconds = 0;
+	int seconds = 0;
 
-  /* Infinite loop */
-  while (1)
-    {
-      /* Assume the LED is active low */
+	/* Infinite loop */
+	while (1)
+	{
+		/* Assume the LED is active low */
 
-      /* Turn on led by setting the pin low */
-      GPIO_ResetBits(BLINK_PORT, (1 << BLINK_PIN));
+		/* Turn on led by setting the pin low */
+		GPIO_ResetBits(LD_GPIO_PORT, LD_GREEN_GPIO_PIN);
 
-      Delay(BLINK_TICKS);
+		Delay(BLINK_TICKS);
 
-      /* Turn off led by setting the pin high */
-      GPIO_SetBits(BLINK_PORT, (1 << BLINK_PIN));
+		/* Turn off led by setting the pin high */
+		GPIO_SetBits(LD_GPIO_PORT, LD_GREEN_GPIO_PIN);
 
-      Delay(BLINK_TICKS);
+		Delay(BLINK_TICKS);
 
-      ++seconds;
+		++seconds;
 
 #if defined(DEBUG)
-      /*
-       * Count seconds on the debug channel.
-       */
-      printf("Second %d\n", seconds);
+		/*
+		 * Count seconds on the debug channel.
+		 */
+		printf("Second %d\n", seconds);
 #endif
-    }
+	}
 }
 
 /**
@@ -126,10 +131,10 @@ main(void)
 void
 Delay(__IO uint32_t nTime)
 {
-  uwTimingDelay = nTime;
+	uwTimingDelay = nTime;
 
-  while (uwTimingDelay != 0)
-    ;
+	while (uwTimingDelay != 0)
+		;
 }
 
 /**
@@ -140,10 +145,10 @@ Delay(__IO uint32_t nTime)
 void
 TimingDelay_Decrement(void)
 {
-  if (uwTimingDelay != 0x00)
-    {
-      uwTimingDelay--;
-    }
+	if (uwTimingDelay != 0x00)
+	{
+		uwTimingDelay--;
+	}
 }
 
 /**
@@ -154,6 +159,6 @@ TimingDelay_Decrement(void)
 void
 SysTick_Handler(void)
 {
-  TimingDelay_Decrement();
+	TimingDelay_Decrement();
 }
 
